@@ -74,7 +74,7 @@ The main interface allows users to upload two images for comparison:
 #### Positive Result (Same Person)
 When the system detects that both images belong to the same person:
 
-![Positive Result - Same Person](Images/Person_1.jpg)
+![Positive Result - Same Person](Images/Positive_result_Same_person.png)
 
 *Example face used for positive match verification*
 
