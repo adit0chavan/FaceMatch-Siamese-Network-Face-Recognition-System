@@ -106,12 +106,20 @@ cd face-recognition-siamese
 pip install -r requirements.txt
 ```
 
-3. Run the Flask application:
+3. Run the Jupyter notebook to train and create the model file:
+```bash
+jupyter notebook
+```
+   - Open `face.ipynb` in the Jupyter interface
+   - Run all cells in the notebook to train the Siamese network model
+   - This will create the required `siamesemodelv2.h5` model file which is necessary to run the application
+
+4. Run the Flask application:
 ```bash
 python main.py
 ```
 
-4. Open your web browser and navigate to `http://localhost:5000`
+5. Open your web browser and navigate to `http://localhost:5000`
 
 ## Project Structure
 
