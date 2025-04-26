@@ -1,0 +1,102 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Face Recognition Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Siamese Face Recognition</h1>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        <label>First Image:</label>
+        <input type="file" name="file1" accept="image/*" required><br>
+        <label>Second Image:</label>
+        <input type="file" name="file2" accept="image/*" required><br>
+        <input type="submit" value="Compare Faces">
+    </form>
+</body>
+</html>
+
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Face Recognition Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .image-container {
+            max-width: 300px;
+        }
+        .image-container img {
+            max-width: 100%;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .match {
+            color: green;
+        }
+        .no-match {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Face Recognition Result</h1>
+    <div class="images">
+        <div class="image-container">
+            <h2>Image 1 ({{ filename1 or 'Unknown' }})</h2>
+            <img src="data:image/png;base64,{{ image1 }}" alt="First Image">
+        </div>
+        <div class="image-container">
+            <h2>Image 2 ({{ filename2 or 'Unknown' }})</h2>
+            <img src="data:image/png;base64,{{ image2 }}" alt="Second Image">
+        </div>
+    </div>
+    <div class="result {% if is_same_person %}match{% else %}no-match{% endif %}">
+        {% if is_same_person is defined %}
+            {% if is_same_person %}
+                <p>✅ Same Person Detected</p>
+                <p>Confidence: {{ "%.2f"|format(confidence or 0) }}%</p>
+            {% else %}
+                <p>❌ Different Persons</p>
+                <p>Confidence: {{ "%.2f"|format(confidence or 0) }}%</p>
+            {% endif %}
+        {% else %}
+            <p>Error: Unable to determine similarity</p>
+        {% endif %}
+    </div>
+    <a href="/">Compare More Images</a>
+</body>
+</html>
